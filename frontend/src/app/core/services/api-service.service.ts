@@ -60,7 +60,7 @@ export class ApiService {
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`, // Optional: Add token if required
+        Authorization: `Bearer ${token}`,
       }),
     };
   }

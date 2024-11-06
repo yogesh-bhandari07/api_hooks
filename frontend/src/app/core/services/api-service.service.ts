@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs'; // Import throwError
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment'; // Import environment
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,10 @@ import { environment } from 'src/environments/environment'; // Import environmen
 export class ApiService {
   private apiUrl = environment.api_url; // Get the API URL from environment
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private LocalStorageService: LocalStorageService
+  ) {}
 
   // GET request to fetch data from the server
   get<T>(endpoint: string, params?: HttpParams): Observable<T> {
@@ -52,10 +56,11 @@ export class ApiService {
 
   // Get HTTP options for headers
   private getHttpOptions() {
+    const token = this.LocalStorageService.getItem('user');
     return {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer YOUR_ACCESS_TOKEN', // Optional: Add token if required
+        Authorization: `Bearer ${token}`, // Optional: Add token if required
       }),
     };
   }

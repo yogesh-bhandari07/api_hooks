@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './core/services/api-service.service';
 import { LocalStorageService } from './core/services/local-storage.service';
+import { v4 as uuidv4 } from 'uuid';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,7 +15,8 @@ export class AppComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     if (!this.LocalStorageService.getItem('user')) {
-      var uuid: any = uuid();
+      console.log('first time');
+      const uuid = uuidv4();
       this.apiService
         .post('user/create', { uuid: uuid })
         .subscribe((data: any) => {

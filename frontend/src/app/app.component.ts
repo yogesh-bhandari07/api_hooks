@@ -1,27 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { LocalStorageService } from './services/local-storage.service';
-import { ApiService } from './services/api.service';
-import { randomUUID } from 'node:crypto';
-
+import { ApiService } from './core/services/api-service.service';
+import { LocalStorageService } from './core/services/local-storage.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  title = 'app';
   constructor(
-    private localStorageService: LocalStorageService,
-    private apiService: ApiService
+    private apiService: ApiService,
+    private LocalStorageService: LocalStorageService
   ) {}
-
   ngOnInit(): void {
-    if (!this.localStorageService.getItem('user')) {
-      const userIdentity = randomUUID();
+    if (!this.LocalStorageService.getItem('user')) {
+      var uuid: any = uuid();
       this.apiService
-        .post('/api/user/create', { userIdentity })
-        .subscribe((data: any) =>
-          this.localStorageService.setItem('user', data.data)
-        );
+        .post('user/create', { uuid: uuid })
+        .subscribe((data: any) => {
+          this.LocalStorageService.setItem('user', data.data);
+        });
     }
   }
 }

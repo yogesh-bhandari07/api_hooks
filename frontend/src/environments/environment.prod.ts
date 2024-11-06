@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  secretKey: 'your-production-secret-key',
-  api_url: '',
+  secretKey: 'Mr#4(|<3R', // Replace with your actual secret key
 };

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('api_requests', function (Blueprint $table) {
             $table->id();
-            $table->string('user', 100)->nullable();
+
             $table->string('name', 100)->nullable();
             $table->string('secret', 100)->nullable();
             $table->json('header')->nullable();
@@ -35,6 +35,11 @@ return new class extends Migration
             $table->foreign('charset_id')
                 ->references('id')
                 ->on('charsets')
+                ->onDelete('set null');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
                 ->onDelete('set null');
 
             $table->softDeletes();

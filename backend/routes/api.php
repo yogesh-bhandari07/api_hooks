@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-Route::get('/api-requests', [App\Http\Controllers\ApiRequestController::class, 'index']);
-Route::post('/api-requests', [App\Http\Controllers\ApiRequestController::class, 'store']);
-Route::get('/api-requests/{id}', [App\Http\Controllers\ApiRequestController::class, 'show']);
-Route::put('/api-requests/{id}', [App\Http\Controllers\ApiRequestController::class, 'update']);
-Route::delete('/api-requests/{id}', [App\Http\Controllers\ApiRequestController::class, 'destroy']);
+Route::get('/user/create', [App\Http\Controllers\AuthenticationController::class, 'create']);
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/api-requests', [App\Http\Controllers\ApiRequestController::class, 'index']);
+    Route::post('/api-requests', [App\Http\Controllers\ApiRequestController::class, 'store']);
+    Route::get('/api-requests/{id}', [App\Http\Controllers\ApiRequestController::class, 'show']);
+    Route::put('/api-requests/{id}', [App\Http\Controllers\ApiRequestController::class, 'update']);
+    Route::delete('/api-requests/{id}', [App\Http\Controllers\ApiRequestController::class, 'destroy']);
+});

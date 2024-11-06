@@ -19,6 +19,7 @@ class AuthenticationController extends Controller
             return CustomResponse::error("Error", 400, $validator->errors());
         }
         $validatedData = $validator->validated();
+
         $user = User::create([
             'uuid' => $validatedData['uuid'],
         ]);

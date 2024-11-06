@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\CustomResponse;
 use App\Models\ApiRequest;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,8 @@ class ApiRequestController extends Controller
 {
     public function index()
     {
-        return ApiRequest::all();
+        $apiRequests = ApiRequest::all();
+        return CustomResponse::success($apiRequests);
     }
 
     public function store(Request $request)

@@ -1,13 +1,19 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { LocalStorageService } from './services/local-storage.service';
+import { randomUUID } from 'node:crypto';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  title = 'app';
+export class AppComponent implements OnInit {
+  constructor(private localStorageService: LocalStorageService) {}
+
+  ngOnInit(): void {
+    if (!this.localStorageService.getItem('user')) {
+      const userIdentity = randomUUID();
+      this.localStorageService.setItem('user', userIdentity);
+    }
+  }
 }

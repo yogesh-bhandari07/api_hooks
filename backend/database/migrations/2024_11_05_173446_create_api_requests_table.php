@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('api_requests', function (Blueprint $table) {
             $table->id();
+            $table->string('user', 100)->nullable();
             $table->string('name', 100)->nullable();
             $table->string('secret', 100)->nullable();
             $table->json('header')->nullable();

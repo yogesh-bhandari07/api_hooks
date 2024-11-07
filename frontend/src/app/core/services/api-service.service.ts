@@ -9,39 +9,43 @@ import { LocalStorageService } from './local-storage.service';
   providedIn: 'root',
 })
 export class ApiService {
-  private apiUrl = environment.api_url; // Get the API URL from environment
+  private apiUrl = environment.api_url;
 
   constructor(
     private http: HttpClient,
     private LocalStorageService: LocalStorageService
   ) {}
 
-  // GET request to fetch data from the server
+  // GET request to fetch data from the server with headers
   get<T>(endpoint: string, params?: HttpParams): Observable<T> {
     const url = `${this.apiUrl}/${endpoint}`;
-    return this.http.get<T>(url, { params }).pipe(catchError(this.handleError)); // Catch errors and handle
+    const options = this.getHttpOptions(params);
+    return this.http.get<T>(url, options).pipe(catchError(this.handleError)); // Catch errors and handle
   }
 
-  // POST request to send data to the server
+  // POST request to send data to the server with headers
   post<T>(endpoint: string, body: any): Observable<T> {
     const url = `${this.apiUrl}/${endpoint}`;
+    const options = this.getHttpOptions();
     return this.http
-      .post<T>(url, body, this.getHttpOptions())
+      .post<T>(url, body, options)
       .pipe(catchError(this.handleError)); // Catch errors and handle
   }
 
-  // PUT request to update data on the server
+  // PUT request to update data on the server with headers
   put<T>(endpoint: string, body: any): Observable<T> {
     const url = `${this.apiUrl}/${endpoint}`;
+    const options = this.getHttpOptions();
     return this.http
-      .put<T>(url, body, this.getHttpOptions())
+      .put<T>(url, body, options)
       .pipe(catchError(this.handleError)); // Catch errors and handle
   }
 
-  // DELETE request to remove data from the server
+  // DELETE request to remove data from the server with headers
   delete<T>(endpoint: string): Observable<T> {
     const url = `${this.apiUrl}/${endpoint}`;
-    return this.http.delete<T>(url).pipe(catchError(this.handleError)); // Catch errors and handle
+    const options = this.getHttpOptions();
+    return this.http.delete<T>(url, options).pipe(catchError(this.handleError)); // Catch errors and handle
   }
 
   // Method to handle HTTP errors
@@ -55,13 +59,12 @@ export class ApiService {
   }
 
   // Get HTTP options for headers
-  private getHttpOptions() {
+  private getHttpOptions(params?: HttpParams) {
     const token = this.LocalStorageService.getItem('user');
-    return {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      }),
-    };
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+    return { headers, params };
   }
 }

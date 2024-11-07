@@ -22,164 +22,259 @@
                   name="url"
                   id="url"
                   autocomplete="url"
-                  class="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
+                  class="block flex-1 border-0 bg-transparent p-2 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
                   placeholder="janesmith"
+                  value="{{ uuid }}"
+                  readonly
+                  disabled
                 />
               </div>
             </div>
           </div>
-
-          <div class="col-span-full">
-            <label for="about" class="block text-sm/6 font-medium text-gray-900"
-              >Request Header</label
-            >
-            <div class="mt-2">
-              <textarea
-                id="about"
-                name="about"
-                rows="3"
-                rows="3"
-                placeholder='{"X-Foo-Bar": "Hello World"}'
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-              ></textarea>
-            </div>
-            <p class="mt-3 text-sm/6 text-gray-600">
-              Write a few sentences about yourself.
-            </p>
-          </div>
-
           <div class="sm:col-span-3">
-            <label
-              for="first-name"
-              class="block text-sm/6 font-medium text-gray-900"
-              >First name</label
-            >
-            <div class="mt-2">
-              <input
-                type="text"
-                name="first-name"
-                id="first-name"
-                autocomplete="given-name"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-              />
+            <div class="flex flex-row justify-between">
+              <label
+                for="http_setatus_id"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Http Status
+              </label>
+              <span
+                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
+                >Required</span
+              >
             </div>
-          </div>
-
-          <div class="sm:col-span-3">
-            <label
-              for="last-name"
-              class="block text-sm/6 font-medium text-gray-900"
-              >Last name</label
-            >
-            <div class="mt-2">
-              <input
-                type="text"
-                name="last-name"
-                id="last-name"
-                autocomplete="family-name"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-              />
-            </div>
-          </div>
-
-          <div class="sm:col-span-4">
-            <label for="email" class="block text-sm/6 font-medium text-gray-900"
-              >Email address</label
-            >
-            <div class="mt-2">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autocomplete="email"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-              />
-            </div>
-          </div>
-
-          <div class="sm:col-span-3">
-            <label
-              for="country"
-              class="block text-sm/6 font-medium text-gray-900"
-              >Country</label
-            >
             <div class="mt-2">
               <select
-                id="country"
-                name="country"
-                autocomplete="country-name"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm/6"
+                id="http_setatus_id"
+                name="http_setatus_id"
+                autocomplete="http_setatus_id"
+                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
               >
-                <option>United States</option>
-                <option>Canada</option>
-                <option>Mexico</option>
+                <option
+                  *ngFor="let item of http_status_list"
+                  [value]="item.id"
+                  [ngStyle]="{
+                    'font-weight': item.is_important ? 'bold' : 'normal',
+                    color: item.is_important ? '#2374ab' : 'black'
+                  }"
+                >
+                  {{ item.code }} - {{ item.description }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div class="sm:col-span-3">
+            <div class="flex flex-row justify-between">
+              <label
+                for="http_status_id"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Response Content Type
+              </label>
+              <span
+                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
+                >Required</span
+              >
+            </div>
+            <div class="mt-2">
+              <select
+                id="http_response_type_id"
+                name="http_response_type_id"
+                autocomplete="http_response_type_id"
+                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+              >
+                <option
+                  *ngFor="let item of response_content_types"
+                  [value]="item.id"
+                  [ngStyle]="{
+                    'font-weight': item.is_important ? 'bold' : 'normal',
+                    color: item.is_important ? '#2374ab' : 'black'
+                  }"
+                >
+                  {{ item.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <div class="flex flex-row justify-between">
+              <label
+                for="method"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Method</label
+              >
+              <span
+                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
+                >Required</span
+              >
+            </div>
+
+            <div class="mt-2">
+              <select
+                id="method"
+                name="method"
+                autocomplete="method"
+                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+              >
+                <option *ngFor="let item of methods" [value]="item">
+                  {{ item }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="sm:col-span-3">
+            <div class="flex flex-row justify-between">
+              <label
+                for="http_status_id"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Charset
+              </label>
+              <span
+                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
+                >Required</span
+              >
+            </div>
+            <div class="mt-2">
+              <select
+                id="charset_id"
+                name="charset_id"
+                autocomplete="charset_id"
+                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+              >
+                <option
+                  *ngFor="let item of charsets"
+                  [value]="item.id"
+                  [ngStyle]="{
+                    'font-weight': item.is_important ? 'bold' : 'normal',
+                    color: item.is_important ? '#2374ab' : 'black'
+                  }"
+                >
+                  {{ item.name }}
+                </option>
               </select>
             </div>
           </div>
 
           <div class="col-span-full">
-            <label
-              for="street-address"
-              class="block text-sm/6 font-medium text-gray-900"
-              >Street address</label
-            >
+            <div class="flex flex-row justify-between">
+              <label
+                for="http_status_id"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Request Header
+              </label>
+              <span
+                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
+                >Optional</span
+              >
+            </div>
+
+            <div class="mt-2">
+              <textarea
+                id="request_header"
+                name="request_header"
+                rows="5"
+                rows="5"
+                placeholder="{{ headerPlaceHolder }}"
+                class="block w-full rounded-md border-0 p-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+              ></textarea>
+            </div>
+            <p class="mt-3 text-sm/6 text-gray-600">it should be a json</p>
+          </div>
+          <div class="col-span-full">
+            <div class="flex flex-row justify-between">
+              <label
+                for="request_body"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Request Body
+              </label>
+              <span
+                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
+                >Optional</span
+              >
+            </div>
+            <div class="mt-2">
+              <textarea
+                id="request_body"
+                name="request_body"
+                rows="5"
+                rows="5"
+                placeholder="{{ bodyPlaceHolder }}"
+                class="block w-full rounded-md border-0 p-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+              ></textarea>
+            </div>
+            <p class="mt-3 text-sm/6 text-gray-600">it should be a json</p>
+          </div>
+
+          <div class="sm:col-span-3">
+            <div class="flex flex-row justify-between">
+              <label
+                for="secret"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Secret token
+              </label>
+              <span
+                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
+                >Optional</span
+              >
+            </div>
+
             <div class="mt-2">
               <input
                 type="text"
-                name="street-address"
-                id="street-address"
-                autocomplete="street-address"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                name="secret"
+                id="secret"
+                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
               />
             </div>
           </div>
 
-          <div class="sm:col-span-2 sm:col-start-1">
-            <label for="city" class="block text-sm/6 font-medium text-gray-900"
-              >City</label
-            >
+          <div class="sm:col-span-3">
+            <div class="flex flex-row justify-between">
+              <label
+                for="name"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Mock identifier
+              </label>
+              <span
+                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
+                >Optional</span
+              >
+            </div>
+
             <div class="mt-2">
               <input
                 type="text"
-                name="city"
-                id="city"
-                autocomplete="address-level2"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                name="name"
+                id="name"
+                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
               />
             </div>
           </div>
-
-          <div class="sm:col-span-2">
-            <label
-              for="region"
-              class="block text-sm/6 font-medium text-gray-900"
-              >State / Province</label
-            >
-            <div class="mt-2">
-              <input
-                type="text"
-                name="region"
-                id="region"
-                autocomplete="address-level1"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-              />
+          <div class="sm:col-span-3">
+            <div class="flex flex-row justify-between">
+              <label
+                for="name"
+                class="block text-sm/6 font-medium text-gray-900"
+                >Expire on
+              </label>
+              <span
+                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
+                >Optional</span
+              >
             </div>
-          </div>
 
-          <div class="sm:col-span-2">
-            <label
-              for="postal-code"
-              class="block text-sm/6 font-medium text-gray-900"
-              >ZIP / Postal code</label
-            >
             <div class="mt-2">
-              <input
-                type="text"
-                name="postal-code"
-                id="postal-code"
-                autocomplete="postal-code"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
-              />
+              <select
+                id="charset_id"
+                name="charset_id"
+                autocomplete="charset_id"
+                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+              >
+                <option *ngFor="let item of expireOption" [value]="item.value">
+                  {{ item.name }}
+                </option>
+              </select>
             </div>
           </div>
         </div>

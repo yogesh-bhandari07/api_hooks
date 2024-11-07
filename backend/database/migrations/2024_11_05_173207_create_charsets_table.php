@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('charsets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->boolean('is_important')->default(0);
+
             $table->timestamps();
         });
     }

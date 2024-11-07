@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code', 50);
             $table->string('description', 100);
+            $table->boolean('is_important')->default(0);
             $table->timestamps();
         });
     }

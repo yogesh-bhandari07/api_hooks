@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Helpers\CustomResponse;
 use App\Models\ApiRequest;
+use App\Models\HttpStatus;
+use App\Models\Charsets;
+use App\Models\HttpResponseType;
 use Illuminate\Http\Request;
 
 class ApiRequestController extends Controller
@@ -48,5 +51,37 @@ class ApiRequestController extends Controller
         $article->delete();
 
         return response()->json(null, 204);
+    }
+
+
+    public function getHttpStatus()
+    {
+        try {
+
+            $data = HttpStatus::all();
+            return CustomResponse::success($data);
+        } catch (\Exception $e) {
+            return CustomResponse::error($e->getMessage());
+        }
+    }
+    public function getResponseContent()
+    {
+        try {
+
+            $data = HttpResponseType::all();
+            return CustomResponse::success($data);
+        } catch (\Exception $e) {
+            return CustomResponse::error($e->getMessage());
+        }
+    }
+    public function getCharsetContent()
+    {
+        try {
+
+            $data = Charsets::all();
+            return CustomResponse::success($data);
+        } catch (\Exception $e) {
+            return CustomResponse::error($e->getMessage());
+        }
     }
 }

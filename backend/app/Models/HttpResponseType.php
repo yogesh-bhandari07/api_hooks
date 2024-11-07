@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class HttpResponseType extends Model
 {
     use HasFactory;
+    public $table  = "http_response_types";
 }

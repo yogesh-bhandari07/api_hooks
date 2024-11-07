@@ -24,4 +24,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/api-requests/{id}', [App\Http\Controllers\ApiRequestController::class, 'show']);
     Route::put('/api-requests/{id}', [App\Http\Controllers\ApiRequestController::class, 'update']);
     Route::delete('/api-requests/{id}', [App\Http\Controllers\ApiRequestController::class, 'destroy']);
+
+
+    Route::get('http-status', [App\Http\Controllers\ApiRequestController::class, 'getHttpStatus']);
+    Route::get('response-content-type', [App\Http\Controllers\ApiRequestController::class, 'getResponseContent']);
+    Route::get('charset', [App\Http\Controllers\ApiRequestController::class, 'getCharsetContent']);
 });

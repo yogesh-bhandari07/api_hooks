@@ -13,9 +13,25 @@ import { ScheduleRequestComponent } from './views/schedule-request/schedule-requ
 import { PdfResizerComponent } from './views/pdf-resizer/pdf-resizer.component';
 import { PdfTablesComponent } from './views/pdf-tables/pdf-tables.component';
 import { PdfImagesComponent } from './views/pdf-images/pdf-images.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
+import { HomeComponent } from './views/home/home.component';
+import { FormsModule } from '@angular/forms';
 @NgModule({
-  declarations: [AppComponent, CreateRequestComponent, EditRequestComponent, ListRequestComponent, BEncodeDecodeComponent, AesEncryptDecryptComponent, ScheduleRequestComponent, PdfResizerComponent, PdfTablesComponent, PdfImagesComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  declarations: [
+    AppComponent,
+    CreateRequestComponent,
+    EditRequestComponent,
+    ListRequestComponent,
+    BEncodeDecodeComponent,
+    AesEncryptDecryptComponent,
+    ScheduleRequestComponent,
+    PdfResizerComponent,
+    PdfTablesComponent,
+    PdfImagesComponent,
+    NavbarComponent,
+    HomeComponent,
+  ],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })

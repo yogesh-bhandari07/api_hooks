@@ -16,6 +16,7 @@ import { PdfImagesComponent } from './views/pdf-images/pdf-images.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { HomeComponent } from './views/home/home.component';
 import { FormsModule } from '@angular/forms';
+import { LoaderComponent } from './shared/loader/loader.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,6 +31,7 @@ import { FormsModule } from '@angular/forms';
     PdfImagesComponent,
     NavbarComponent,
     HomeComponent,
+    LoaderComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [],

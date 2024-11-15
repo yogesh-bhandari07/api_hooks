@@ -1,10 +1,12 @@
 <div class="flex justify-center items-center min-h-screen">
   <form
+    (ngSubmit)="handleOnSubmit()"
     class="w-full container bg-white p-8 shadow-md border-double border-[#618fac]"
   >
     <div class="space-y-12">
       <div class="border-b border-gray-900/10 pb-12">
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <!-- URL Display -->
           <div class="sm:col-span-4">
             <label for="url" class="block text-sm/6 font-medium text-gray-900"
               >URL</label
@@ -19,36 +21,30 @@
                 >
                 <input
                   type="text"
-                  name="url"
                   id="url"
-                  autocomplete="url"
                   class="block flex-1 border-0 bg-transparent p-2 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
-                  placeholder="janesmith"
-                  value="{{ uuid }}"
+                  [value]="uuid"
                   readonly
                   disabled
                 />
               </div>
             </div>
           </div>
+
+          <!-- Http Status Dropdown -->
           <div class="sm:col-span-3">
-            <div class="flex flex-row justify-between">
-              <label
-                for="http_setatus_id"
-                class="block text-sm/6 font-medium text-gray-900"
-                >Http Status
-              </label>
-              <span
-                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
-                >Required</span
-              >
-            </div>
+            <label
+              for="http_status_id"
+              class="block text-sm/6 font-medium text-gray-900"
+              >Http Status</label
+            >
             <div class="mt-2">
               <select
-                id="http_setatus_id"
-                name="http_setatus_id"
-                autocomplete="http_setatus_id"
+                id="http_status_id"
                 class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                [(ngModel)]="http_status_id"
+                name="http_status_id"
+                required
               >
                 <option
                   *ngFor="let item of http_status_list"
@@ -63,24 +59,21 @@
               </select>
             </div>
           </div>
+
+          <!-- Response Content Type Dropdown -->
           <div class="sm:col-span-3">
-            <div class="flex flex-row justify-between">
-              <label
-                for="http_status_id"
-                class="block text-sm/6 font-medium text-gray-900"
-                >Response Content Type
-              </label>
-              <span
-                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
-                >Required</span
-              >
-            </div>
+            <label
+              for="http_response_type_id"
+              class="block text-sm/6 font-medium text-gray-900"
+              >Response Content Type</label
+            >
             <div class="mt-2">
               <select
                 id="http_response_type_id"
+                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                [(ngModel)]="http_response_type_id"
                 name="http_response_type_id"
-                autocomplete="http_response_type_id"
-                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                required
               >
                 <option
                   *ngFor="let item of response_content_types"
@@ -96,25 +89,20 @@
             </div>
           </div>
 
+          <!-- Method Dropdown -->
           <div class="sm:col-span-3">
-            <div class="flex flex-row justify-between">
-              <label
-                for="method"
-                class="block text-sm/6 font-medium text-gray-900"
-                >Method</label
-              >
-              <span
-                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
-                >Required</span
-              >
-            </div>
-
+            <label
+              for="method"
+              class="block text-sm/6 font-medium text-gray-900"
+              >Method</label
+            >
             <div class="mt-2">
               <select
                 id="method"
+                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                [(ngModel)]="method"
                 name="method"
-                autocomplete="method"
-                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                required
               >
                 <option *ngFor="let item of methods" [value]="item">
                   {{ item }}
@@ -123,24 +111,20 @@
             </div>
           </div>
 
+          <!-- Charset Dropdown -->
           <div class="sm:col-span-3">
-            <div class="flex flex-row justify-between">
-              <label
-                for="http_status_id"
-                class="block text-sm/6 font-medium text-gray-900"
-                >Charset
-              </label>
-              <span
-                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
-                >Required</span
-              >
-            </div>
+            <label
+              for="charset_id"
+              class="block text-sm/6 font-medium text-gray-900"
+              >Charset</label
+            >
             <div class="mt-2">
               <select
                 id="charset_id"
-                name="charset_id"
-                autocomplete="charset_id"
                 class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                [(ngModel)]="charset_id"
+                name="charset_id"
+                required
               >
                 <option
                   *ngFor="let item of charsets"
@@ -156,120 +140,129 @@
             </div>
           </div>
 
+          <!-- Request Header -->
           <div class="col-span-full">
-            <div class="flex flex-row justify-between">
-              <label
-                for="http_status_id"
-                class="block text-sm/6 font-medium text-gray-900"
-                >Request Header
-              </label>
-              <span
-                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
-                >Optional</span
-              >
-            </div>
-
+            <label
+              for="request_header"
+              class="block text-sm/6 font-medium text-gray-900"
+              >Request Header</label
+            >
             <div class="mt-2">
               <textarea
                 id="request_header"
                 name="request_header"
                 rows="5"
-                rows="5"
-                placeholder="{{ headerPlaceHolder }}"
-                class="block w-full rounded-md border-0 p-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                [(ngModel)]="request_header"
+                (ngModelChange)="validateJsonHeader()"
+                placeholder="{ 'X-Foo-Bar': 'Hello World' }"
+                class="block w-full rounded-md border-0 p-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
               ></textarea>
-            </div>
-            <p class="mt-3 text-sm/6 text-gray-600">it should be a json</p>
-          </div>
-          <div class="col-span-full">
-            <div class="flex flex-row justify-between">
-              <label
-                for="request_body"
-                class="block text-sm/6 font-medium text-gray-900"
-                >Request Body
-              </label>
-              <span
-                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
-                >Optional</span
+              <p
+                class="mt-3 text-sm text-gray-600"
+                *ngIf="isHeaderValid === false"
+                style="color: red"
               >
+                Invalid JSON
+              </p>
+              <p
+                class="mt-3 text-sm text-gray-600"
+                *ngIf="isHeaderValid === true"
+                style="color: green"
+              >
+                Valid JSON
+              </p>
             </div>
+          </div>
+
+          <!-- Request Body -->
+          <div class="col-span-full">
+            <label
+              for="request_body"
+              class="block text-sm/6 font-medium text-gray-900"
+              >Request Body</label
+            >
             <div class="mt-2">
               <textarea
                 id="request_body"
                 name="request_body"
                 rows="5"
-                rows="5"
-                placeholder="{{ bodyPlaceHolder }}"
-                class="block w-full rounded-md border-0 p-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                [(ngModel)]="request_body"
+                (ngModelChange)="validateJsonBody()"
+                placeholder="{
+                identity: {
+                  id: 'b06cd03f-75d0-413a-b94b-35e155444d70',
+                  login: 'John Doe',
+                },
+                data: {
+                  roles: 'Admin',
+                },
+              }"
+                class="block w-full rounded-md border-0 p-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
               ></textarea>
+              <p
+                class="mt-3 text-sm text-gray-600"
+                *ngIf="isBodyValid === false"
+                style="color: red"
+              >
+                Invalid JSON
+              </p>
+              <p
+                class="mt-3 text-sm text-gray-600"
+                *ngIf="isBodyValid === true"
+                style="color: green"
+              >
+                Valid JSON
+              </p>
             </div>
-            <p class="mt-3 text-sm/6 text-gray-600">it should be a json</p>
           </div>
 
+          <!-- Secret Token -->
           <div class="sm:col-span-3">
-            <div class="flex flex-row justify-between">
-              <label
-                for="secret"
-                class="block text-sm/6 font-medium text-gray-900"
-                >Secret token
-              </label>
-              <span
-                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
-                >Optional</span
-              >
-            </div>
-
+            <label
+              for="secret"
+              class="block text-sm/6 font-medium text-gray-900"
+              >Secret token</label
+            >
             <div class="mt-2">
               <input
                 type="text"
-                name="secret"
                 id="secret"
-                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                [(ngModel)]="secret"
+                name="secret"
               />
             </div>
           </div>
 
+          <!-- Mock Identifier -->
           <div class="sm:col-span-3">
-            <div class="flex flex-row justify-between">
-              <label
-                for="name"
-                class="block text-sm/6 font-medium text-gray-900"
-                >Mock identifier
-              </label>
-              <span
-                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
-                >Optional</span
-              >
-            </div>
-
+            <label for="name" class="block text-sm/6 font-medium text-gray-900"
+              >Mock identifier</label
+            >
             <div class="mt-2">
               <input
                 type="text"
-                name="name"
                 id="name"
-                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6"
+                class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                [(ngModel)]="name"
+                name="name"
               />
             </div>
           </div>
-          <div class="sm:col-span-3">
-            <div class="flex flex-row justify-between">
-              <label
-                for="name"
-                class="block text-sm/6 font-medium text-gray-900"
-                >Expire on
-              </label>
-              <span
-                class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
-                >Optional</span
-              >
-            </div>
 
+          <!-- Expire On Dropdown -->
+          <div class="sm:col-span-3">
+            <label
+              for="expireOption"
+              class="block text-sm/6 font-medium text-gray-900"
+              >Expire On</label
+            >
             <div class="mt-2">
               <select
-                id="charset_id"
-                name="charset_id"
-                autocomplete="charset_id"
+                id="expireOption"
                 class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                [(ngModel)]="expireOption"
+                name="expireOption"
               >
                 <option *ngFor="let item of expireOption" [value]="item.value">
                   {{ item.name }}
@@ -281,10 +274,19 @@
       </div>
     </div>
 
+    <!-- Submit Button -->
     <div class="mt-6 flex items-center justify-end gap-x-6">
       <button
         type="submit"
         class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+        [disabled]="
+          !isBodyValid ||
+          !isHeaderValid ||
+          !http_status_id ||
+          !http_response_type_id ||
+          !method ||
+          !charset_id
+        "
       >
         Save
       </button>

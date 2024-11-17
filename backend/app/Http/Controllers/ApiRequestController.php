@@ -8,49 +8,92 @@ use App\Models\HttpStatus;
 use App\Models\Charsets;
 use App\Models\HttpResponseType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ApiRequestController extends Controller
 {
     public function index()
     {
-        $apiRequests = ApiRequest::all();
-        return CustomResponse::success($apiRequests);
+        try {
+            $apiRequests = ApiRequest::with(['httpStatus', 'httpResponseType', 'charset', 'user'])->where('user_id', auth()->user()->id)->where('deleted_at', null)->orderBy('created_at', 'desc')->get();
+            return CustomResponse::success($apiRequests);
+        } catch (\Exception $e) {
+            return CustomResponse::error($e->getMessage());
+        }
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string',
-            'content' => 'required|string',
-        ]);
 
-        $article = ApiRequest::create($validated);
-
-        return response()->json($article, 201);
+        try {
+            $validator = Validator::make($request->all(), [
+                "name" => "required",
+                "secret" => "required",
+                "header" => "nullable:json",
+                "body" => "nullable:json",
+                "expiry" => "required",
+                "method" => "required|in:GET,POST,PUT,PATCH,DELETE,OPTIONS,HEAD",
+                "http_status_id" => "required|exists:http_status,id",
+                "http_response_type_id" => "required|exists:http_response_types,id",
+                "charset_id" => "required|exists:charsets,id",
+            ]);
+            if ($validator->fails()) {
+                return CustomResponse::error("Error", 400, $validator->errors());
+            }
+            $validatedData = $validator->validated();
+            $request = ApiRequest::create($validatedData);
+            return CustomResponse::success($request);
+        } catch (\Exception $e) {
+            return CustomResponse::error($e->getMessage());
+        }
     }
 
-    public function show(ApiRequest $article)
+    /*************  ✨ Codeium Command ⭐  *************/
+    /**
+     * Display the specified ApiRequest.
+     *
+     * @param ApiRequest $api_request
+     * @return ApiRequest
+     */
+    /******  8e31fb9c-c813-414d-af29-1509b06efc7f  *******/
+    public function show(ApiRequest $api_request)
     {
-        return $article;
+        return $api_request;
     }
 
-    public function update(Request $request, ApiRequest $article)
+    public function update(Request $request, ApiRequest $api_request)
     {
-        $validated = $request->validate([
-            'title' => 'sometimes|required|string',
-            'content' => 'sometimes|required|string',
-        ]);
-
-        $article->update($validated);
-
-        return response()->json($article, 200);
+        try {
+            $validator = Validator::make($request->all(), [
+                "name" => "required",
+                "secret" => "required",
+                "header" => "nullable:json",
+                "body" => "nullable:json",
+                "expiry" => "required",
+                "method" => "required|in:GET,POST,PUT,PATCH,DELETE,OPTIONS,HEAD",
+                "http_status_id" => "required|exists:http_status,id",
+                "http_response_type_id" => "required|exists:http_response_types,id",
+                "charset_id" => "required|exists:charsets,id",
+            ]);
+            if ($validator->fails()) {
+                return CustomResponse::error("Error", 400, $validator->errors());
+            }
+            $validatedData = $validator->validated();
+            $api_request->update($validatedData);
+            return CustomResponse::success($api_request);
+        } catch (\Exception $e) {
+            return CustomResponse::error($e->getMessage());
+        }
     }
 
-    public function destroy(ApiRequest $article)
+    public function destroy(ApiRequest $api_request)
     {
-        $article->delete();
-
-        return response()->json(null, 204);
+        try {
+            $api_request->delete();
+            return CustomResponse::success($api_request);
+        } catch (\Exception $e) {
+            return CustomResponse::error($e->getMessage());
+        }
     }
 
 

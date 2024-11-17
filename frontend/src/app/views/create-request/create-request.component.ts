@@ -92,26 +92,21 @@ export class CreateRequestComponent implements OnInit {
     console.log('first');
     if (this.isBodyValid && this.isHeaderValid) {
       const requestData = {
-        uuid: this.uuid,
+        secret: this.uuid,
         http_status_id: this.http_status_id,
         http_response_type_id: this.http_response_type_id,
         method: this.method,
         charset_id: this.charset_id,
-        request_header: this.request_header,
-        request_body: this.request_body,
-        secret: this.secret,
+        header: this.request_header,
+        body: this.request_body,
         name: this.name,
-        expire_option: this.expireOptionSelected,
+        expiry: this.expireOptionSelected,
       };
 
-      this.apiService.post('submit-request', requestData).subscribe(
-        (response) => {
-          console.log('Request submitted successfully:', response);
-          // Add any additional logic on success, such as showing a success message.
-        },
+      this.apiService.post('api-requests', requestData).subscribe(
+        (response) => {},
         (error) => {
           console.error('Error submitting request:', error);
-          // Handle error, e.g., display an error message to the user.
         }
       );
     } else {

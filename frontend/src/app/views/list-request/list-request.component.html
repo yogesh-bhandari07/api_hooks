@@ -1,4 +1,4 @@
-<div class="flex justify-center items-center min-h-screen">
+<div *ngIf="!apiRequests" class="flex justify-center items-center min-h-screen">
   <div class="max-w-[720px] mx-auto">
     <div
       class="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl w-96"
@@ -37,7 +37,7 @@
     </div>
   </div>
 </div>
-<div class="container mx-auto">
+<div class="container mx-auto" *ngIf="apiRequests">
   <div class="w-full flex justify-between items-center mb-3 mt-1 pl-3">
     <div>
       <h3 class="text-lg font-semibold text-slate-800">Mork Api List</h3>
@@ -49,7 +49,7 @@
             [(ngModel)]="searchTerm"
             (input)="onSearch()"
             class="bg-white w-full pr-11 h-10 pl-3 py-2 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded transition duration-200 ease focus:outline-none focus:border-slate-400 hover:border-slate-400 shadow-sm focus:shadow-md"
-            placeholder="Search for invoice..."
+            placeholder="Search for apiRequest..."
           />
           <button
             class="absolute h-8 w-8 right-1 top-1 my-auto px-2 flex items-center bg-white rounded"
@@ -92,52 +92,80 @@
         <tr>
           <th class="p-4 border-b border-slate-200 bg-slate-50">
             <p class="text-sm font-normal leading-none text-slate-500">
-              Invoice Number
+              Secret
             </p>
           </th>
           <th class="p-4 border-b border-slate-200 bg-slate-50">
             <p class="text-sm font-normal leading-none text-slate-500">
-              Customer
+              Method
             </p>
           </th>
           <th class="p-4 border-b border-slate-200 bg-slate-50">
             <p class="text-sm font-normal leading-none text-slate-500">
-              Amount
+              Header
+            </p>
+          </th>
+          <th class="p-4 border-b border-slate-200 bg-slate-50">
+            <p class="text-sm font-normal leading-none text-slate-500">Body</p>
+          </th>
+          <th class="p-4 border-b border-slate-200 bg-slate-50">
+            <p class="text-sm font-normal leading-none text-slate-500">
+              Status
             </p>
           </th>
           <th class="p-4 border-b border-slate-200 bg-slate-50">
             <p class="text-sm font-normal leading-none text-slate-500">
-              Issued
+              Response Type
             </p>
           </th>
+
           <th class="p-4 border-b border-slate-200 bg-slate-50">
             <p class="text-sm font-normal leading-none text-slate-500">
-              Due Date
+              Action
             </p>
           </th>
         </tr>
       </thead>
       <tbody>
         <tr
-          *ngFor="let invoice of paginatedInvoices"
+          *ngFor="let apiRequest of apiRequests"
           class="hover:bg-slate-50 border-b border-slate-200"
         >
           <td class="p-4 py-5">
             <p class="block font-semibold text-sm text-slate-800">
-              {{ invoice.invoiceNumber }}
+              {{ apiRequest.secret }}
             </p>
           </td>
           <td class="p-4 py-5">
-            <p class="text-sm text-slate-500">{{ invoice.customer }}</p>
+            <p class="block font-semibold text-sm text-slate-800">
+              {{ apiRequest.method }}
+            </p>
           </td>
           <td class="p-4 py-5">
-            <p class="text-sm text-slate-500">{{ invoice.amount }}</p>
+            <p class="text-sm text-slate-500">{{ apiRequest.header }}</p>
           </td>
           <td class="p-4 py-5">
-            <p class="text-sm text-slate-500">{{ invoice.issued }}</p>
+            <p class="text-sm text-slate-500">{{ apiRequest.body }}</p>
           </td>
           <td class="p-4 py-5">
-            <p class="text-sm text-slate-500">{{ invoice.dueDate }}</p>
+            <p class="text-sm text-slate-500">
+              {{ apiRequest.http_status.code }} -
+              {{ apiRequest.http_status.description }}
+            </p>
+          </td>
+          <td class="p-4 py-5">
+            <p class="text-sm text-slate-500">
+              {{ apiRequest.http_response_type.name }}
+            </p>
+          </td>
+
+          <td class="p-4 py-5">
+            <button mat-fab aria-label="Example icon button with a delete icon">
+              <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-fab disabled aria-label="">
+              <mat-icon>pen</mat-icon>
+            </button>
           </td>
         </tr>
       </tbody>
